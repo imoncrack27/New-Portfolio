@@ -330,7 +330,7 @@ function App() {
               <div className="absolute inset-0 bg-gradient-to-br from-cyber-blue/20 to-cyber-purple/20 rounded-2xl blur-2xl" />
               <div className="relative glass-card rounded-2xl p-8 float">
                 <img
-                  src="public/graduation.jpg"
+                  src="graduation.jpg"
                   alt="Drexell John Joseph Mingo"
                   className="w-full rounded-xl mb-6"
                 />
