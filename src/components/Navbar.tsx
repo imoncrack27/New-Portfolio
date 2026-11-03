@@ -41,7 +41,7 @@ export default function Navbar() {
             className="text-2xl font-bold gradient-text"
             whileHover={{ scale: 1.05 }}
           >
-            AM.
+            DJM.
           </motion.a>
 
           {/* Desktop Navigation */}

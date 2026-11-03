@@ -33,7 +33,7 @@ export default function Hero() {
           className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-6 leading-tight"
         >
           Hi, I'm{' '}
-          <span className="gradient-text">Alex Morgan</span>
+          <span className="gradient-text">Drexell John Joseph Mingo</span>
         </motion.h1>
 
         <motion.p
