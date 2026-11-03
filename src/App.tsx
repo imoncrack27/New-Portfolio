@@ -179,33 +179,15 @@ function App() {
             <a href="#work" className="text-sm text-gray-400 hover:text-cyber-blue transition-colors hidden sm:block">Work</a>
             <a href="#about" className="text-sm text-gray-400 hover:text-cyber-blue transition-colors hidden sm:block">About</a>
             <a href="#skills" className="text-sm text-gray-400 hover:text-cyber-blue transition-colors hidden sm:block">Skills</a>
-            <div className="flex items-center gap-2">
-              <a
-                href="https://www.facebook.com/Drexell.John27/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-8 h-8 flex items-center justify-center rounded-lg hover:text-cyber-blue text-gray-400 transition-colors"
-              >
-                <Facebook size={16} />
-              </a>
-              <a
-                href="https://www.instagram.com/primo.d_j/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-8 h-8 flex items-center justify-center rounded-lg hover:text-cyber-blue text-gray-400 transition-colors"
-              >
-                <Instagram size={16} />
-              </a>
-              <a
-                href="https://github.com/imoncrack27"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-cyber-blue to-cyber-purple rounded-lg text-sm font-medium hover:opacity-90 transition-opacity"
-              >
-                <Github size={16} />
-                GitHub
-              </a>
-            </div>
+            <a
+              href="https://github.com/imoncrack27"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-cyber-blue to-cyber-purple rounded-lg text-sm font-medium hover:opacity-90 transition-opacity"
+            >
+              <Github size={16} />
+              GitHub
+            </a>
           </div>
         </div>
       </nav>
