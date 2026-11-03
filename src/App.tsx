@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, ReactNode } from 'react';
 import { motion, useScroll, useTransform, useInView } from 'framer-motion';
-import { Github, ExternalLink, Mail, ArrowUpRight, Code2, Palette, Zap, Terminal, Rocket, Globe } from 'lucide-react';
+import { Github, ExternalLink, Mail, ArrowUpRight, Code2, Palette, Zap, Terminal, Rocket, Globe, Facebook, Instagram } from 'lucide-react';
 
 const projects = [
   {
@@ -175,19 +175,37 @@ function App() {
           >
             DJM.
           </motion.a>
-          <div className="flex items-center gap-8">
-            <a href="#work" className="text-sm text-gray-400 hover:text-cyber-blue transition-colors">Work</a>
-            <a href="#about" className="text-sm text-gray-400 hover:text-cyber-blue transition-colors">About</a>
-            <a href="#skills" className="text-sm text-gray-400 hover:text-cyber-blue transition-colors">Skills</a>
-            <a
-              href="https://github.com/imoncrack27"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-cyber-blue to-cyber-purple rounded-lg text-sm font-medium hover:opacity-90 transition-opacity"
-            >
-              <Github size={16} />
-              GitHub
-            </a>
+          <div className="flex items-center gap-6">
+            <a href="#work" className="text-sm text-gray-400 hover:text-cyber-blue transition-colors hidden sm:block">Work</a>
+            <a href="#about" className="text-sm text-gray-400 hover:text-cyber-blue transition-colors hidden sm:block">About</a>
+            <a href="#skills" className="text-sm text-gray-400 hover:text-cyber-blue transition-colors hidden sm:block">Skills</a>
+            <div className="flex items-center gap-2">
+              <a
+                href="https://www.facebook.com/Drexell.John27/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-8 h-8 flex items-center justify-center rounded-lg hover:text-cyber-blue text-gray-400 transition-colors"
+              >
+                <Facebook size={16} />
+              </a>
+              <a
+                href="https://www.instagram.com/primo.d_j/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-8 h-8 flex items-center justify-center rounded-lg hover:text-cyber-blue text-gray-400 transition-colors"
+              >
+                <Instagram size={16} />
+              </a>
+              <a
+                href="https://github.com/imoncrack27"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-cyber-blue to-cyber-purple rounded-lg text-sm font-medium hover:opacity-90 transition-opacity"
+              >
+                <Github size={16} />
+                GitHub
+              </a>
+            </div>
           </div>
         </div>
       </nav>
@@ -242,6 +260,40 @@ function App() {
               >
                 See My Work
                 <ArrowUpRight size={18} />
+              </motion.a>
+            </div>
+
+            {/* Social Links */}
+            <div className="flex items-center gap-4 mt-6">
+              <motion.a
+                href="https://www.facebook.com/Drexell.John27/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 flex items-center justify-center border border-dark-border rounded-lg hover:border-cyber-blue hover:text-cyber-blue transition-colors text-gray-400"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Facebook size={20} />
+              </motion.a>
+              <motion.a
+                href="https://www.instagram.com/primo.d_j/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 flex items-center justify-center border border-dark-border rounded-lg hover:border-cyber-blue hover:text-cyber-blue transition-colors text-gray-400"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Instagram size={20} />
+              </motion.a>
+              <motion.a
+                href="https://github.com/imoncrack27"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 flex items-center justify-center border border-dark-border rounded-lg hover:border-cyber-blue hover:text-cyber-blue transition-colors text-gray-400"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Github size={20} />
               </motion.a>
             </div>
           </motion.div>
@@ -490,7 +542,7 @@ function App() {
                 Open to opportunities, collaborations, and interesting conversations. 
                 Feel free to reach out!
               </p>
-              <div className="flex items-center justify-center gap-4">
+              <div className="flex items-center justify-center gap-4 flex-wrap">
                 <motion.a
                   href="https://github.com/imoncrack27"
                   target="_blank"
@@ -501,6 +553,28 @@ function App() {
                 >
                   <Github size={20} />
                   GitHub
+                </motion.a>
+                <motion.a
+                  href="https://www.facebook.com/Drexell.John27/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-6 py-3 border border-dark-border rounded-lg hover:border-cyber-blue transition-colors"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <Facebook size={20} />
+                  Facebook
+                </motion.a>
+                <motion.a
+                  href="https://www.instagram.com/primo.d_j/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-6 py-3 border border-dark-border rounded-lg hover:border-cyber-blue transition-colors"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <Instagram size={20} />
+                  Instagram
                 </motion.a>
                 <motion.a
                   href="mailto:contact@drexellmingo.dev"
@@ -519,18 +593,36 @@ function App() {
 
       {/* Footer */}
       <footer className="py-8 px-6 border-t border-dark-border">
-        <div className="max-w-6xl mx-auto flex items-center justify-between">
+        <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-sm text-gray-500">
             © 2025 Drexell John Joseph Mingo
           </p>
-          <a
-            href="https://github.com/imoncrack27"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-sm text-gray-500 hover:text-cyber-blue transition-colors"
-          >
-            @imoncrack27
-          </a>
+          <div className="flex items-center gap-4">
+            <a
+              href="https://www.facebook.com/Drexell.John27/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-500 hover:text-cyber-blue transition-colors"
+            >
+              <Facebook size={18} />
+            </a>
+            <a
+              href="https://www.instagram.com/primo.d_j/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-500 hover:text-cyber-blue transition-colors"
+            >
+              <Instagram size={18} />
+            </a>
+            <a
+              href="https://github.com/imoncrack27"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-500 hover:text-cyber-blue transition-colors"
+            >
+              <Github size={18} />
+            </a>
+          </div>
         </div>
       </footer>
     </div>
