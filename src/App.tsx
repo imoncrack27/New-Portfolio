@@ -1,5 +1,6 @@
-import { motion } from 'framer-motion';
-import { Github, ExternalLink, Mail, ArrowUpRight } from 'lucide-react';
+import { useState, useEffect, useRef, ReactNode } from 'react';
+import { motion, useScroll, useTransform, useInView } from 'framer-motion';
+import { Github, ExternalLink, Mail, ArrowUpRight, Code2, Palette, Zap, Terminal, Rocket, Globe } from 'lucide-react';
 
 const projects = [
   {
@@ -8,6 +9,7 @@ const projects = [
     language: 'JavaScript',
     url: 'https://github.com/imoncrack27/Expense-Tracker-MERN',
     year: '2025',
+    category: 'Full-Stack',
   },
   {
     name: 'Fitness-tracker',
@@ -16,6 +18,7 @@ const projects = [
     url: 'https://github.com/imoncrack27/Fitness-tracker',
     live: 'https://fitness-tracker-frontend-seven.vercel.app',
     year: '2025',
+    category: 'Frontend',
   },
   {
     name: 'twitter-clone',
@@ -24,6 +27,7 @@ const projects = [
     url: 'https://github.com/imoncrack27/twitter-clone',
     live: 'https://twitter-clone-six-tan.vercel.app',
     year: '2025',
+    category: 'Full-Stack',
   },
   {
     name: 'Delivery-app',
@@ -31,6 +35,7 @@ const projects = [
     language: 'JavaScript',
     url: 'https://github.com/imoncrack27/Delivery-app',
     year: '2025',
+    category: 'Full-Stack',
   },
   {
     name: 'Product-Store',
@@ -38,6 +43,7 @@ const projects = [
     language: 'JavaScript',
     url: 'https://github.com/imoncrack27/Product-Store',
     year: '2025',
+    category: 'Full-Stack',
   },
   {
     name: 'Habit-Tracker',
@@ -45,6 +51,7 @@ const projects = [
     language: 'JavaScript',
     url: 'https://github.com/imoncrack27/Habit-Tracker',
     year: '2025',
+    category: 'Frontend',
   },
   {
     name: 'RCTS Operational System',
@@ -52,6 +59,7 @@ const projects = [
     language: 'TypeScript',
     url: 'https://github.com/imoncrack27/RCTS-Operational-System',
     year: '2024',
+    category: 'Full-Stack',
   },
   {
     name: 'Portfolio-Website',
@@ -60,6 +68,7 @@ const projects = [
     url: 'https://github.com/imoncrack27/Portfolio-Website',
     live: 'https://portfolio-mingyo.vercel.app/',
     year: '2024',
+    category: 'Frontend',
   },
   {
     name: 'capstone-appointment-system',
@@ -67,252 +76,458 @@ const projects = [
     language: 'PHP',
     url: 'https://github.com/imoncrack27/capstone-appointment-system',
     year: '2023',
+    category: 'Full-Stack',
   },
 ];
 
 const skills = [
-  'JavaScript', 'TypeScript', 'React', 'Node.js', 'HTML/CSS',
-  'PHP', 'Laravel', 'MongoDB', 'MySQL', 'Git',
-  'REST APIs', 'Tailwind CSS', 'Express.js', 'Vercel',
+  { name: 'JavaScript', icon: Code2 },
+  { name: 'TypeScript', icon: Code2 },
+  { name: 'React', icon: Globe },
+  { name: 'Node.js', icon: Terminal },
+  { name: 'HTML/CSS', icon: Palette },
+  { name: 'PHP', icon: Code2 },
+  { name: 'Laravel', icon: Code2 },
+  { name: 'MongoDB', icon: Code2 },
+  { name: 'MySQL', icon: Code2 },
+  { name: 'Git', icon: Code2 },
+  { name: 'REST APIs', icon: Zap },
+  { name: 'Tailwind CSS', icon: Palette },
+  { name: 'Express.js', icon: Terminal },
+  { name: 'Vercel', icon: Rocket },
 ];
 
-function App() {
+function ScrollProgress() {
+  const { scrollYProgress } = useScroll();
+  const scaleX = useTransform(scrollYProgress, [0, 1], [0, 1]);
+
   return (
-    <div className="min-h-screen bg-[#fafafa] text-[#1a1a1a]">
+    <motion.div
+      className="scroll-progress"
+      style={{ scaleX }}
+    />
+  );
+}
+
+function AnimatedSection({ children, className = '' }: { children: ReactNode; className?: string }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const isInView = useInView(ref, { once: true, margin: '-100px' });
+
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 50 }}
+      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+      transition={{ duration: 0.8, ease: 'easeOut' }}
+      className={className}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+function App() {
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      setMousePosition({
+        x: e.clientX,
+        y: e.clientY
+      });
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
+
+  return (
+    <div className="min-h-screen bg-dark-bg text-white relative overflow-hidden">
+      <ScrollProgress />
+      
+      {/* Animated background */}
+      <div className="fixed inset-0 bg-grid opacity-30 pointer-events-none" />
+      <motion.div
+        className="fixed w-96 h-96 rounded-full pointer-events-none opacity-20 blur-3xl"
+        style={{
+          background: 'radial-gradient(circle, #00f0ff 0%, transparent 70%)',
+          left: mousePosition.x - 192,
+          top: mousePosition.y - 192,
+        }}
+      />
+      <motion.div
+        className="fixed w-96 h-96 rounded-full pointer-events-none opacity-10 blur-3xl"
+        style={{
+          background: 'radial-gradient(circle, #b000ff 0%, transparent 70%)',
+          right: mousePosition.x - 192,
+          bottom: mousePosition.y - 192,
+        }}
+      />
+
       {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-[#fafafa]/80 backdrop-blur-md border-b border-neutral-200/50">
-        <div className="max-w-3xl mx-auto px-6 py-4 flex items-center justify-between">
-          <a href="#" className="text-sm font-semibold tracking-tight">
-            DJM
-          </a>
-          <div className="flex items-center gap-6">
-            <a href="#work" className="text-sm text-neutral-500 hover:text-neutral-900 transition-colors link-underline">Work</a>
-            <a href="#about" className="text-sm text-neutral-500 hover:text-neutral-900 transition-colors link-underline">About</a>
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-dark-bg/80 backdrop-blur-xl border-b border-dark-border">
+        <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+          <motion.a
+            href="#"
+            className="text-lg font-bold gradient-text"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            DJM.
+          </motion.a>
+          <div className="flex items-center gap-8">
+            <a href="#work" className="text-sm text-gray-400 hover:text-cyber-blue transition-colors">Work</a>
+            <a href="#about" className="text-sm text-gray-400 hover:text-cyber-blue transition-colors">About</a>
+            <a href="#skills" className="text-sm text-gray-400 hover:text-cyber-blue transition-colors">Skills</a>
             <a
               href="https://github.com/imoncrack27"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-neutral-500 hover:text-neutral-900 transition-colors"
+              className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-cyber-blue to-cyber-purple rounded-lg text-sm font-medium hover:opacity-90 transition-opacity"
             >
-              <Github size={18} />
+              <Github size={16} />
+              GitHub
             </a>
           </div>
         </div>
       </nav>
 
-      {/* Hero */}
-      <section className="max-w-3xl mx-auto px-6 pt-32 pb-20">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          <div className="flex items-center gap-4 mb-8">
-            <img
-              src="https://avatars.githubusercontent.com/u/98969110?v=4"
-              alt="Drexell John Joseph Mingo"
-              className="w-16 h-16 rounded-full border border-neutral-200"
-            />
-            <div>
-              <h1 className="text-2xl font-semibold tracking-tight">Drexell John Joseph Mingo</h1>
-              <p className="text-sm text-neutral-500">Web Developer · Designer</p>
+      {/* Hero Section */}
+      <section className="min-h-screen flex items-center justify-center relative px-6 pt-20">
+        <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <div className="mb-6">
+              <span className="inline-block px-4 py-2 bg-dark-card border border-dark-border rounded-full text-sm text-cyber-blue">
+                👋 Welcome to my portfolio
+              </span>
             </div>
-          </div>
+            
+            <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-tight">
+              Hi, I'm{' '}
+              <span className="gradient-text">Drexell</span>
+              <br />
+              <span className="text-3xl md:text-4xl text-gray-300">John Joseph Mingo</span>
+            </h1>
+            
+            <p className="text-xl text-gray-400 mb-4">
+              Web Developer 💻 Designer 👾 Aspiring Software Developer 👨‍💻
+            </p>
+            
+            <p className="text-base text-gray-500 mb-8 max-w-md">
+              Building clean, functional web applications with modern technologies. 
+              Passionate about creating digital experiences that make a difference.
+            </p>
 
-          <p className="text-lg text-neutral-600 leading-relaxed max-w-xl">
-            Web Developer 💻 Designer 👾 Aspiring Software Developer 👨‍💻
-          </p>
-          <p className="text-base text-neutral-500 leading-relaxed mt-4 max-w-xl">
-            I build clean, functional web applications. Currently focused on JavaScript, React, and full-stack development. Open to opportunities and collaborations.
-          </p>
+            <div className="flex items-center gap-4">
+              <motion.a
+                href="https://github.com/imoncrack27"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-cyber-blue to-cyber-purple rounded-lg font-medium hover:opacity-90 transition-opacity neon-glow"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Github size={20} />
+                View GitHub
+              </motion.a>
+              <motion.a
+                href="#work"
+                className="inline-flex items-center gap-2 px-6 py-3 border border-dark-border rounded-lg hover:border-cyber-blue transition-colors"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                See My Work
+                <ArrowUpRight size={18} />
+              </motion.a>
+            </div>
+          </motion.div>
 
-          <div className="flex items-center gap-4 mt-8">
-            <a
-              href="https://github.com/imoncrack27"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-2 text-sm bg-neutral-900 text-white rounded-lg hover:bg-neutral-800 transition-colors"
-            >
-              <Github size={16} />
-              GitHub
-            </a>
-            <a
-              href="#work"
-              className="inline-flex items-center gap-1 text-sm text-neutral-600 hover:text-neutral-900 transition-colors"
-            >
-              View my work
-              <ArrowUpRight size={14} />
-            </a>
-          </div>
-        </motion.div>
+          <motion.div
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="relative"
+          >
+            <div className="relative w-full max-w-md mx-auto">
+              <div className="absolute inset-0 bg-gradient-to-br from-cyber-blue/20 to-cyber-purple/20 rounded-2xl blur-2xl" />
+              <div className="relative glass-card rounded-2xl p-8 float">
+                <img
+                  src="https://image.qwenlm.ai/generated-images/df18cb91-3662-4394-8540-0017bcdadfff/_result.png"
+                  alt="Drexell John Joseph Mingo"
+                  className="w-full rounded-xl mb-6"
+                />
+                <div className="space-y-3">
+                  <div className="flex items-center gap-3">
+                    <div className="w-2 h-2 bg-cyber-blue rounded-full pulse-glow" />
+                    <span className="text-sm text-gray-400">Available for opportunities</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <div className="w-2 h-2 bg-cyber-purple rounded-full" />
+                    <span className="text-sm text-gray-400">21+ Projects</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <div className="w-2 h-2 bg-cyber-pink rounded-full" />
+                    <span className="text-sm text-gray-400">4+ Years Experience</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        </div>
       </section>
 
-      {/* Work / Projects */}
-      <section id="work" className="max-w-3xl mx-auto px-6 pb-20">
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-        >
-          <h2 className="text-sm font-medium text-neutral-400 uppercase tracking-wider mb-8">Selected Work</h2>
+      {/* Work Section */}
+      <section id="work" className="py-24 px-6 relative">
+        <div className="max-w-6xl mx-auto">
+          <AnimatedSection>
+            <div className="mb-16">
+              <h2 className="text-4xl md:text-5xl font-bold mb-4">
+                <span className="gradient-text">Selected</span> Work
+              </h2>
+              <p className="text-gray-400 text-lg">Projects I've built and contributed to</p>
+            </div>
+          </AnimatedSection>
 
-          <div className="space-y-0 divide-y divide-neutral-200">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {projects.map((project, index) => (
               <motion.a
                 key={project.name}
                 href={project.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                initial={{ opacity: 0, y: 10 }}
+                initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.3, delay: index * 0.05 }}
-                className="group flex items-start justify-between py-6 hover:bg-neutral-100/50 -mx-4 px-4 rounded-lg transition-colors"
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="glass-card rounded-xl p-6 group"
               >
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-3">
-                    <h3 className="text-base font-medium group-hover:text-neutral-900 transition-colors">
-                      {project.name}
-                    </h3>
-                    <span className="text-xs text-neutral-400">{project.year}</span>
+                <div className="flex items-start justify-between mb-4">
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2 mb-2">
+                      <h3 className="text-lg font-semibold group-hover:text-cyber-blue transition-colors">
+                        {project.name}
+                      </h3>
+                    </div>
+                    <span className="text-xs px-2 py-1 bg-dark-border rounded-full text-gray-400">
+                      {project.category}
+                    </span>
                   </div>
-                  <p className="text-sm text-neutral-500 mt-1 line-clamp-1">
-                    {project.description}
-                  </p>
-                  <div className="flex items-center gap-3 mt-2">
-                    <span className="text-xs px-2 py-0.5 bg-neutral-100 text-neutral-600 rounded-full">
+                  <ArrowUpRight
+                    size={20}
+                    className="text-gray-600 group-hover:text-cyber-blue transition-colors"
+                  />
+                </div>
+
+                <p className="text-sm text-gray-400 mb-4 line-clamp-2">
+                  {project.description}
+                </p>
+
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs px-3 py-1 tech-badge rounded-full">
                       {project.language}
                     </span>
-                    {project.live && (
-                      <span className="text-xs text-neutral-400 flex items-center gap-1">
-                        <ExternalLink size={10} />
-                        Live
-                      </span>
-                    )}
+                    <span className="text-xs text-gray-500">{project.year}</span>
                   </div>
+                  {project.live && (
+                    <span className="text-xs text-cyber-blue flex items-center gap-1">
+                      <ExternalLink size={12} />
+                      Live
+                    </span>
+                  )}
                 </div>
-                <ArrowUpRight
-                  size={18}
-                  className="text-neutral-300 group-hover:text-neutral-600 transition-colors mt-1 flex-shrink-0"
-                />
               </motion.a>
             ))}
           </div>
 
-          <div className="mt-8 text-center">
-            <a
+          <AnimatedSection className="mt-12 text-center">
+            <motion.a
               href="https://github.com/imoncrack27?tab=repositories"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-sm text-neutral-500 hover:text-neutral-900 transition-colors link-underline"
+              className="inline-flex items-center gap-2 px-6 py-3 border border-dark-border rounded-lg hover:border-cyber-blue transition-colors"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
-              View all repositories on GitHub
-              <ArrowUpRight size={14} />
-            </a>
-          </div>
-        </motion.div>
+              View All Repositories
+              <ArrowUpRight size={18} />
+            </motion.a>
+          </AnimatedSection>
+        </div>
       </section>
 
-      {/* About */}
-      <section id="about" className="max-w-3xl mx-auto px-6 pb-20">
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-        >
-          <h2 className="text-sm font-medium text-neutral-400 uppercase tracking-wider mb-8">About</h2>
+      {/* About Section */}
+      <section id="about" className="py-24 px-6 relative">
+        <div className="max-w-6xl mx-auto">
+          <AnimatedSection>
+            <div className="mb-16">
+              <h2 className="text-4xl md:text-5xl font-bold mb-4">
+                About <span className="gradient-text">Me</span>
+              </h2>
+              <p className="text-gray-400 text-lg">Get to know who I am</p>
+            </div>
+          </AnimatedSection>
 
           <div className="grid md:grid-cols-2 gap-12">
-            <div className="space-y-4">
-              <p className="text-neutral-600 leading-relaxed">
-                I'm a web developer and designer passionate about building things for the web. I enjoy turning ideas into functional, well-designed applications.
-              </p>
-              <p className="text-neutral-600 leading-relaxed">
-                My work spans frontend interfaces, backend systems, and full-stack applications. I'm always learning and exploring new technologies.
-              </p>
-              <p className="text-neutral-600 leading-relaxed">
-                Currently open to new opportunities and interesting projects. Feel free to reach out.
-              </p>
-            </div>
+            <AnimatedSection>
+              <div className="space-y-6">
+                <p className="text-gray-300 text-lg leading-relaxed">
+                  I'm a passionate web developer and designer with a focus on building modern, 
+                  functional applications. I love turning ideas into reality through code.
+                </p>
+                <p className="text-gray-400 leading-relaxed">
+                  My journey in tech has been driven by curiosity and a desire to create meaningful 
+                  digital experiences. I work across the full stack, from crafting intuitive interfaces 
+                  to building robust backend systems.
+                </p>
+                <p className="text-gray-400 leading-relaxed">
+                  Currently open to new opportunities and exciting projects. Let's build something 
+                  amazing together.
+                </p>
 
-            <div>
-              <h3 className="text-sm font-medium text-neutral-400 mb-4">Technologies</h3>
-              <div className="flex flex-wrap gap-2">
-                {skills.map((skill) => (
-                  <span
-                    key={skill}
-                    className="text-xs px-3 py-1.5 bg-neutral-100 text-neutral-600 rounded-full"
-                  >
-                    {skill}
-                  </span>
-                ))}
-              </div>
-
-              <div className="mt-8 pt-8 border-t border-neutral-200">
-                <h3 className="text-sm font-medium text-neutral-400 mb-4">Stats</h3>
-                <div className="grid grid-cols-3 gap-4">
-                  <div>
-                    <p className="text-2xl font-semibold">21</p>
-                    <p className="text-xs text-neutral-500">Repositories</p>
+                <div className="grid grid-cols-3 gap-6 pt-6">
+                  <div className="text-center">
+                    <p className="text-3xl font-bold gradient-text">21</p>
+                    <p className="text-sm text-gray-500 mt-1">Repositories</p>
                   </div>
-                  <div>
-                    <p className="text-2xl font-semibold">4+</p>
-                    <p className="text-xs text-neutral-500">Years Coding</p>
+                  <div className="text-center">
+                    <p className="text-3xl font-bold gradient-text">4+</p>
+                    <p className="text-sm text-gray-500 mt-1">Years Coding</p>
                   </div>
-                  <div>
-                    <p className="text-2xl font-semibold">14+</p>
-                    <p className="text-xs text-neutral-500">Languages</p>
+                  <div className="text-center">
+                    <p className="text-3xl font-bold gradient-text">14+</p>
+                    <p className="text-sm text-gray-500 mt-1">Technologies</p>
                   </div>
                 </div>
               </div>
-            </div>
+            </AnimatedSection>
+
+            <AnimatedSection>
+              <div className="glass-card rounded-xl p-8">
+                <h3 className="text-xl font-semibold mb-6 flex items-center gap-2">
+                  <Code2 className="text-cyber-blue" size={24} />
+                  What I Do
+                </h3>
+                <div className="space-y-4">
+                  <div className="flex items-start gap-4">
+                    <div className="w-10 h-10 bg-gradient-to-br from-cyber-blue/20 to-cyber-purple/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <Globe size={20} className="text-cyber-blue" />
+                    </div>
+                    <div>
+                      <h4 className="font-medium mb-1">Frontend Development</h4>
+                      <p className="text-sm text-gray-400">Building responsive, interactive user interfaces with React and modern CSS</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-4">
+                    <div className="w-10 h-10 bg-gradient-to-br from-cyber-purple/20 to-cyber-pink/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <Terminal size={20} className="text-cyber-purple" />
+                    </div>
+                    <div>
+                      <h4 className="font-medium mb-1">Backend Development</h4>
+                      <p className="text-sm text-gray-400">Creating robust APIs and server-side applications with Node.js and PHP</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-4">
+                    <div className="w-10 h-10 bg-gradient-to-br from-cyber-pink/20 to-cyber-blue/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <Palette size={20} className="text-cyber-pink" />
+                    </div>
+                    <div>
+                      <h4 className="font-medium mb-1">UI/UX Design</h4>
+                      <p className="text-sm text-gray-400">Designing intuitive and visually appealing user experiences</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </AnimatedSection>
           </div>
-        </motion.div>
+        </div>
       </section>
 
-      {/* Contact */}
-      <section className="max-w-3xl mx-auto px-6 pb-20">
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="text-center py-16 border-t border-neutral-200"
-        >
-          <h2 className="text-xl font-semibold mb-3">Let's connect</h2>
-          <p className="text-neutral-500 mb-6">Open to opportunities, collaborations, and interesting conversations.</p>
-          <div className="flex items-center justify-center gap-4">
-            <a
-              href="https://github.com/imoncrack27"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-2 text-sm border border-neutral-200 rounded-lg hover:border-neutral-400 transition-colors"
-            >
-              <Github size={16} />
-              GitHub
-            </a>
-            <a
-              href="mailto:contact@drexellmingo.dev"
-              className="inline-flex items-center gap-2 px-4 py-2 text-sm border border-neutral-200 rounded-lg hover:border-neutral-400 transition-colors"
-            >
-              <Mail size={16} />
-              Email
-            </a>
+      {/* Skills Section */}
+      <section id="skills" className="py-24 px-6 relative">
+        <div className="max-w-6xl mx-auto">
+          <AnimatedSection>
+            <div className="mb-16">
+              <h2 className="text-4xl md:text-5xl font-bold mb-4">
+                Tech <span className="gradient-text">Stack</span>
+              </h2>
+              <p className="text-gray-400 text-lg">Technologies I work with</p>
+            </div>
+          </AnimatedSection>
+
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            {skills.map((skill, index) => (
+              <motion.div
+                key={skill.name}
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.3, delay: index * 0.05 }}
+                whileHover={{ scale: 1.05, y: -5 }}
+                className="glass-card rounded-xl p-6 text-center"
+              >
+                <skill.icon className="w-8 h-8 text-cyber-blue mx-auto mb-3" />
+                <p className="text-sm font-medium">{skill.name}</p>
+              </motion.div>
+            ))}
           </div>
-        </motion.div>
+        </div>
+      </section>
+
+      {/* Contact Section */}
+      <section className="py-24 px-6 relative">
+        <div className="max-w-4xl mx-auto">
+          <AnimatedSection>
+            <div className="glass-card rounded-2xl p-12 text-center">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">
+                Let's <span className="gradient-text">Connect</span>
+              </h2>
+              <p className="text-gray-400 mb-8 max-w-md mx-auto">
+                Open to opportunities, collaborations, and interesting conversations. 
+                Feel free to reach out!
+              </p>
+              <div className="flex items-center justify-center gap-4">
+                <motion.a
+                  href="https://github.com/imoncrack27"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-cyber-blue to-cyber-purple rounded-lg font-medium hover:opacity-90 transition-opacity"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <Github size={20} />
+                  GitHub
+                </motion.a>
+                <motion.a
+                  href="mailto:contact@drexellmingo.dev"
+                  className="inline-flex items-center gap-2 px-6 py-3 border border-dark-border rounded-lg hover:border-cyber-blue transition-colors"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <Mail size={20} />
+                  Email
+                </motion.a>
+              </div>
+            </div>
+          </AnimatedSection>
+        </div>
       </section>
 
       {/* Footer */}
-      <footer className="max-w-3xl mx-auto px-6 pb-8">
-        <div className="flex items-center justify-between text-xs text-neutral-400 border-t border-neutral-200 pt-6">
-          <span>© 2025 Drexell John Joseph Mingo</span>
+      <footer className="py-8 px-6 border-t border-dark-border">
+        <div className="max-w-6xl mx-auto flex items-center justify-between">
+          <p className="text-sm text-gray-500">
+            © 2025 Drexell John Joseph Mingo
+          </p>
           <a
             href="https://github.com/imoncrack27"
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:text-neutral-600 transition-colors"
+            className="text-sm text-gray-500 hover:text-cyber-blue transition-colors"
           >
             @imoncrack27
           </a>
