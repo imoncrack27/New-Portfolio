@@ -1,124 +1,147 @@
-import { useState, useEffect, useRef, ReactNode } from 'react';
-import { motion, useScroll, useTransform, useInView } from 'framer-motion';
-import { Github, ExternalLink, Mail, ArrowUpRight, Code2, Palette, Zap, Terminal, Rocket, Globe, Facebook, Instagram } from 'lucide-react';
+import { useState, useEffect, useRef, ReactNode } from "react";
+import { motion, useScroll, useTransform, useInView } from "framer-motion";
+import {
+  Github,
+  ExternalLink,
+  Mail,
+  ArrowUpRight,
+  Code2,
+  Palette,
+  Zap,
+  Terminal,
+  Rocket,
+  Globe,
+  Facebook,
+  Instagram,
+} from "lucide-react";
 
 const projects = [
   {
-    name: 'Expense-Tracker-MERN',
-    description: 'A full-stack expense tracking application built with the MERN stack (MongoDB, Express, React, Node.js).',
-    language: 'JavaScript',
-    url: 'https://github.com/imoncrack27/Expense-Tracker-MERN',
-    year: '2025',
-    category: 'Full-Stack',
+    name: "Expense-Tracker-MERN",
+    description:
+      "A full-stack expense tracking application built with the MERN stack (MongoDB, Express, React, Node.js).",
+    language: "JavaScript",
+    url: "https://github.com/imoncrack27/Expense-Tracker-MERN",
+    year: "2025",
+    category: "Full-Stack",
   },
   {
-    name: 'Fitness-tracker',
-    description: 'A fitness tracking app to monitor workouts, progress, and health goals.',
-    language: 'JavaScript',
-    url: 'https://github.com/imoncrack27/Fitness-tracker',
-    live: 'https://fitness-tracker-frontend-seven.vercel.app',
-    year: '2025',
-    category: 'Frontend',
+    name: "Fitness-tracker",
+    description:
+      "A fitness tracking app to monitor workouts, progress, and health goals.",
+    language: "JavaScript",
+    url: "https://github.com/imoncrack27/Fitness-tracker",
+    live: "https://fitness-tracker-frontend-seven.vercel.app",
+    year: "2025",
+    category: "Frontend",
   },
   {
-    name: 'twitter-clone',
-    description: 'A Twitter/X clone with real-time posting, following, and social features.',
-    language: 'JavaScript',
-    url: 'https://github.com/imoncrack27/twitter-clone',
-    live: 'https://twitter-clone-six-tan.vercel.app',
-    year: '2025',
-    category: 'Full-Stack',
+    name: "twitter-clone",
+    description:
+      "A Twitter/X clone with real-time posting, following, and social features.",
+    language: "JavaScript",
+    url: "https://github.com/imoncrack27/twitter-clone",
+    live: "https://twitter-clone-six-tan.vercel.app",
+    year: "2025",
+    category: "Full-Stack",
   },
   {
-    name: 'Delivery-app',
-    description: 'A delivery application built for local delivery services in Aurora.',
-    language: 'JavaScript',
-    url: 'https://github.com/imoncrack27/Delivery-app',
-    year: '2025',
-    category: 'Full-Stack',
+    name: "Delivery-app",
+    description:
+      "A delivery application built for local delivery services in Aurora.",
+    language: "JavaScript",
+    url: "https://github.com/imoncrack27/Delivery-app",
+    year: "2025",
+    category: "Full-Stack",
   },
   {
-    name: 'Product-Store',
-    description: 'A product store application with inventory management and CRUD operations.',
-    language: 'JavaScript',
-    url: 'https://github.com/imoncrack27/Product-Store',
-    year: '2025',
-    category: 'Full-Stack',
+    name: "Product-Store",
+    description:
+      "A product store application with inventory management and CRUD operations.",
+    language: "JavaScript",
+    url: "https://github.com/imoncrack27/Product-Store",
+    year: "2025",
+    category: "Full-Stack",
   },
   {
-    name: 'Habit-Tracker',
-    description: 'A habit tracking application to build and maintain daily routines.',
-    language: 'JavaScript',
-    url: 'https://github.com/imoncrack27/Habit-Tracker',
-    year: '2025',
-    category: 'Frontend',
+    name: "Habit-Tracker",
+    description:
+      "A habit tracking application to build and maintain daily routines.",
+    language: "JavaScript",
+    url: "https://github.com/imoncrack27/Habit-Tracker",
+    year: "2025",
+    category: "Frontend",
   },
   {
-    name: 'RCTS Operational System',
-    description: 'A full-stack operational system with separate frontend (TypeScript) and backend (Node.js) components.',
-    language: 'TypeScript',
-    url: 'https://github.com/imoncrack27/RCTS-Operational-System',
-    year: '2024',
-    category: 'Full-Stack',
+    name: "RCTS Operational System",
+    description:
+      "A full-stack operational system with separate frontend (TypeScript) and backend (Node.js) components.",
+    language: "TypeScript",
+    url: "https://github.com/imoncrack27/RCTS-Operational-System",
+    year: "2024",
+    category: "Full-Stack",
   },
+  // {
+  //   name: "Portfolio-Website",
+  //   description:
+  //     "My personal portfolio website showcasing projects and skills.",
+  //   language: "HTML",
+  //   url: "https://github.com/imoncrack27/Portfolio-Website",
+  //   live: "https://portfolio-mingyo.vercel.app/",
+  //   year: "2024",
+  //   category: "Frontend",
+  // },
   {
-    name: 'Portfolio-Website',
-    description: 'My personal portfolio website showcasing projects and skills.',
-    language: 'HTML',
-    url: 'https://github.com/imoncrack27/Portfolio-Website',
-    live: 'https://portfolio-mingyo.vercel.app/',
-    year: '2024',
-    category: 'Frontend',
-  },
-  {
-    name: 'capstone-appointment-system',
-    description: 'An appointment scheduling system built as a capstone project using PHP.',
-    language: 'PHP',
-    url: 'https://github.com/imoncrack27/capstone-appointment-system',
-    year: '2023',
-    category: 'Full-Stack',
+    name: "capstone-appointment-system",
+    description:
+      "An appointment scheduling system built as a capstone project using PHP.",
+    language: "PHP",
+    url: "https://github.com/imoncrack27/capstone-appointment-system",
+    year: "2023",
+    category: "Full-Stack",
   },
 ];
 
 const skills = [
-  { name: 'JavaScript', icon: Code2 },
-  { name: 'TypeScript', icon: Code2 },
-  { name: 'React', icon: Globe },
-  { name: 'Node.js', icon: Terminal },
-  { name: 'HTML/CSS', icon: Palette },
-  { name: 'PHP', icon: Code2 },
-  { name: 'Laravel', icon: Code2 },
-  { name: 'MongoDB', icon: Code2 },
-  { name: 'MySQL', icon: Code2 },
-  { name: 'Git', icon: Code2 },
-  { name: 'REST APIs', icon: Zap },
-  { name: 'Tailwind CSS', icon: Palette },
-  { name: 'Express.js', icon: Terminal },
-  { name: 'Vercel', icon: Rocket },
+  { name: "JavaScript", icon: Code2 },
+  { name: "TypeScript", icon: Code2 },
+  { name: "React", icon: Globe },
+  { name: "Node.js", icon: Terminal },
+  { name: "HTML/CSS", icon: Palette },
+  { name: "PHP", icon: Code2 },
+  { name: "Laravel", icon: Code2 },
+  { name: "MongoDB", icon: Code2 },
+  { name: "MySQL", icon: Code2 },
+  { name: "Git", icon: Code2 },
+  { name: "REST APIs", icon: Zap },
+  { name: "Tailwind CSS", icon: Palette },
+  { name: "Express.js", icon: Terminal },
+  { name: "Vercel", icon: Rocket },
 ];
 
 function ScrollProgress() {
   const { scrollYProgress } = useScroll();
   const scaleX = useTransform(scrollYProgress, [0, 1], [0, 1]);
 
-  return (
-    <motion.div
-      className="scroll-progress"
-      style={{ scaleX }}
-    />
-  );
+  return <motion.div className="scroll-progress" style={{ scaleX }} />;
 }
 
-function AnimatedSection({ children, className = '' }: { children: ReactNode; className?: string }) {
+function AnimatedSection({
+  children,
+  className = "",
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
   const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: '-100px' });
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
     <motion.div
       ref={ref}
       initial={{ opacity: 0, y: 50 }}
       animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-      transition={{ duration: 0.8, ease: 'easeOut' }}
+      transition={{ duration: 0.8, ease: "easeOut" }}
       className={className}
     >
       {children}
@@ -133,24 +156,24 @@ function App() {
     const handleMouseMove = (e: MouseEvent) => {
       setMousePosition({
         x: e.clientX,
-        y: e.clientY
+        y: e.clientY,
       });
     };
 
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
   return (
     <div className="min-h-screen bg-dark-bg text-white relative overflow-hidden">
       <ScrollProgress />
-      
+
       {/* Animated background */}
       <div className="fixed inset-0 bg-grid opacity-30 pointer-events-none" />
       <motion.div
         className="fixed w-96 h-96 rounded-full pointer-events-none opacity-20 blur-3xl"
         style={{
-          background: 'radial-gradient(circle, #00f0ff 0%, transparent 70%)',
+          background: "radial-gradient(circle, #00f0ff 0%, transparent 70%)",
           left: mousePosition.x - 192,
           top: mousePosition.y - 192,
         }}
@@ -158,7 +181,7 @@ function App() {
       <motion.div
         className="fixed w-96 h-96 rounded-full pointer-events-none opacity-10 blur-3xl"
         style={{
-          background: 'radial-gradient(circle, #b000ff 0%, transparent 70%)',
+          background: "radial-gradient(circle, #b000ff 0%, transparent 70%)",
           right: mousePosition.x - 192,
           bottom: mousePosition.y - 192,
         }}
@@ -173,12 +196,27 @@ function App() {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            DJM.
+            DJ.
           </motion.a>
           <div className="flex items-center gap-6">
-            <a href="#work" className="text-sm text-gray-400 hover:text-cyber-blue transition-colors hidden sm:block">Work</a>
-            <a href="#about" className="text-sm text-gray-400 hover:text-cyber-blue transition-colors hidden sm:block">About</a>
-            <a href="#skills" className="text-sm text-gray-400 hover:text-cyber-blue transition-colors hidden sm:block">Skills</a>
+            <a
+              href="#work"
+              className="text-sm text-gray-400 hover:text-cyber-blue transition-colors hidden sm:block"
+            >
+              Work
+            </a>
+            <a
+              href="#about"
+              className="text-sm text-gray-400 hover:text-cyber-blue transition-colors hidden sm:block"
+            >
+              About
+            </a>
+            <a
+              href="#skills"
+              className="text-sm text-gray-400 hover:text-cyber-blue transition-colors hidden sm:block"
+            >
+              Skills
+            </a>
             <a
               href="https://github.com/imoncrack27"
               target="_blank"
@@ -205,21 +243,23 @@ function App() {
                 👋 Welcome to my portfolio
               </span>
             </div>
-            
+
             <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-tight">
-              Hi, I'm{' '}
-              <span className="gradient-text">Drexell</span>
+              Hi, I'm <span className="gradient-text">Drexell</span>
               <br />
-              <span className="text-3xl md:text-4xl text-gray-300">John Joseph Mingo</span>
+              <span className="text-3xl md:text-4xl text-gray-300">
+                John Joseph Mingo
+              </span>
             </h1>
-            
+
             <p className="text-xl text-gray-400 mb-4">
               Web Developer 💻 Designer 👾 Aspiring Software Developer 👨‍💻
             </p>
-            
+
             <p className="text-base text-gray-500 mb-8 max-w-md">
-              Building clean, functional web applications with modern technologies. 
-              Passionate about creating digital experiences that make a difference.
+              Building clean, functional web applications with modern
+              technologies. Passionate about creating digital experiences that
+              make a difference.
             </p>
 
             <div className="flex items-center gap-4">
@@ -290,14 +330,16 @@ function App() {
               <div className="absolute inset-0 bg-gradient-to-br from-cyber-blue/20 to-cyber-purple/20 rounded-2xl blur-2xl" />
               <div className="relative glass-card rounded-2xl p-8 float">
                 <img
-                  src="https://image.qwenlm.ai/generated-images/df18cb91-3662-4394-8540-0017bcdadfff/_result.png"
+                  src="/Images/Grad pic.jfif"
                   alt="Drexell John Joseph Mingo"
                   className="w-full rounded-xl mb-6"
                 />
                 <div className="space-y-3">
                   <div className="flex items-center gap-3">
                     <div className="w-2 h-2 bg-cyber-blue rounded-full pulse-glow" />
-                    <span className="text-sm text-gray-400">Available for opportunities</span>
+                    <span className="text-sm text-gray-400">
+                      Available for opportunities
+                    </span>
                   </div>
                   <div className="flex items-center gap-3">
                     <div className="w-2 h-2 bg-cyber-purple rounded-full" />
@@ -305,7 +347,9 @@ function App() {
                   </div>
                   <div className="flex items-center gap-3">
                     <div className="w-2 h-2 bg-cyber-pink rounded-full" />
-                    <span className="text-sm text-gray-400">4+ Years Experience</span>
+                    <span className="text-sm text-gray-400">
+                      2+ Years Experience
+                    </span>
                   </div>
                 </div>
               </div>
@@ -322,7 +366,9 @@ function App() {
               <h2 className="text-4xl md:text-5xl font-bold mb-4">
                 <span className="gradient-text">Selected</span> Work
               </h2>
-              <p className="text-gray-400 text-lg">Projects I've built and contributed to</p>
+              <p className="text-gray-400 text-lg">
+                Projects I've built and contributed to
+              </p>
             </div>
           </AnimatedSection>
 
@@ -365,7 +411,9 @@ function App() {
                     <span className="text-xs px-3 py-1 tech-badge rounded-full">
                       {project.language}
                     </span>
-                    <span className="text-xs text-gray-500">{project.year}</span>
+                    <span className="text-xs text-gray-500">
+                      {project.year}
+                    </span>
                   </div>
                   {project.live && (
                     <span className="text-xs text-cyber-blue flex items-center gap-1">
@@ -410,17 +458,19 @@ function App() {
             <AnimatedSection>
               <div className="space-y-6">
                 <p className="text-gray-300 text-lg leading-relaxed">
-                  I'm a passionate web developer and designer with a focus on building modern, 
-                  functional applications. I love turning ideas into reality through code.
+                  I'm a passionate web developer and designer with a focus on
+                  building modern, functional applications. I love turning ideas
+                  into reality through code.
                 </p>
                 <p className="text-gray-400 leading-relaxed">
-                  My journey in tech has been driven by curiosity and a desire to create meaningful 
-                  digital experiences. I work across the full stack, from crafting intuitive interfaces 
-                  to building robust backend systems.
+                  My journey in tech has been driven by curiosity and a desire
+                  to create meaningful digital experiences. I work across the
+                  full stack, from crafting intuitive interfaces to building
+                  robust backend systems.
                 </p>
                 <p className="text-gray-400 leading-relaxed">
-                  Currently open to new opportunities and exciting projects. Let's build something 
-                  amazing together.
+                  Currently open to new opportunities and exciting projects.
+                  Let's build something amazing together.
                 </p>
 
                 <div className="grid grid-cols-3 gap-6 pt-6">
@@ -429,7 +479,7 @@ function App() {
                     <p className="text-sm text-gray-500 mt-1">Repositories</p>
                   </div>
                   <div className="text-center">
-                    <p className="text-3xl font-bold gradient-text">4+</p>
+                    <p className="text-3xl font-bold gradient-text">2+</p>
                     <p className="text-sm text-gray-500 mt-1">Years Coding</p>
                   </div>
                   <div className="text-center">
@@ -453,7 +503,10 @@ function App() {
                     </div>
                     <div>
                       <h4 className="font-medium mb-1">Frontend Development</h4>
-                      <p className="text-sm text-gray-400">Building responsive, interactive user interfaces with React and modern CSS</p>
+                      <p className="text-sm text-gray-400">
+                        Building responsive, interactive user interfaces with
+                        React and modern CSS
+                      </p>
                     </div>
                   </div>
                   <div className="flex items-start gap-4">
@@ -462,7 +515,10 @@ function App() {
                     </div>
                     <div>
                       <h4 className="font-medium mb-1">Backend Development</h4>
-                      <p className="text-sm text-gray-400">Creating robust APIs and server-side applications with Node.js and PHP</p>
+                      <p className="text-sm text-gray-400">
+                        Creating robust APIs and server-side applications with
+                        Node.js and PHP
+                      </p>
                     </div>
                   </div>
                   <div className="flex items-start gap-4">
@@ -471,7 +527,10 @@ function App() {
                     </div>
                     <div>
                       <h4 className="font-medium mb-1">UI/UX Design</h4>
-                      <p className="text-sm text-gray-400">Designing intuitive and visually appealing user experiences</p>
+                      <p className="text-sm text-gray-400">
+                        Designing intuitive and visually appealing user
+                        experiences
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -521,8 +580,8 @@ function App() {
                 Let's <span className="gradient-text">Connect</span>
               </h2>
               <p className="text-gray-400 mb-8 max-w-md mx-auto">
-                Open to opportunities, collaborations, and interesting conversations. 
-                Feel free to reach out!
+                Open to opportunities, collaborations, and interesting
+                conversations. Feel free to reach out!
               </p>
               <div className="flex items-center justify-center gap-4 flex-wrap">
                 <motion.a
